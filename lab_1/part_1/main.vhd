@@ -41,3 +41,6 @@ WITH sel(2 DOWNTO 0) SELECT
     y <= arith WHEN '0',
          logic WHEN OTHERS;
  END dataflow;
+
+
+---------------
