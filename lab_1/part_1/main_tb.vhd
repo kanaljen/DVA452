@@ -79,58 +79,58 @@ PROCESS
     WAIT for 10 ns;
     
     ---- logic testcases 9 - 16 TODO: Hur funkar logic???
-    ---- testcase 9
+    ---- testcase 9 NOT a
     in1 <= "00000001";
-    in2 <= "00000000";
+    in2 <= "00000011";
     s <= "1000";
     c <= '0';
     WAIT for 10 ns;
     
-    ---- testcase 10
-    in1 <= "00000100";
-    in2 <= "00000010";
+    ---- testcase 10 NOT b
+    in1 <= "00000001";
+    in2 <= "00000011";
     s <= "1001";
     c <= '0';
     WAIT for 10 ns;
     
-    ---- testcase 11
-    in1 <= "00000100";
-    in2 <= "00000010";
+    ---- testcase 11 a AND b
+    in1 <= "00000001";
+    in2 <= "00000011";
     s <= "1010";
     c <= '0';
     WAIT for 10 ns;
     
-    ---- testcase 12
-    in1 <= "00000100";
-    in2 <= "00000010";
+    ---- testcase 12 a OR b
+    in1 <= "00000001";
+    in2 <= "00000011";
     s <= "1011";
     c <= '0';
     WAIT for 10 ns;
     
-    ---- testcase 13
-    in1 <= "00000100";
-    in2 <= "00000010";
+    ---- testcase 13 NAND
+    in1 <= "00000001";
+    in2 <= "00000011";
     s <= "1100";
     c <= '0';
     WAIT for 10 ns;
     
-    ---- testcase 14
-    in1 <= "00000100";
-    in2 <= "00000010";
+    ---- testcase 14 NOR
+    in1 <= "00000001";
+    in2 <= "00000011";
     s <= "1101";
     c <= '0';
     WAIT for 10 ns;
     
-    ---- testcase 15
-    in1 <= "00000100";
-    in2 <= "00000010";
+    ---- testcase 15 XOR
+    in1 <= "00000001";
+    in2 <= "00000011";
     s <= "1110";
     c <= '0';
     WAIT for 10 ns;
     
-    ---- testcase 16
-    in1 <= "00000100";
-    in2 <= "00000010";
+    ---- testcase 16 XNOR
+    in1 <= "00000001";
+    in2 <= "00000011";
     s <= "1111";
     c <= '0';
     WAIT for 10 ns;
