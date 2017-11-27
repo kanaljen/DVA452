@@ -5,10 +5,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 ----------------- Multiplier -----------------
 ----------------------------------------------
 
-ENTITY multiplier  IS 
-	PORT( a,  b:  IN  STD_LOGIC_VECTOR  (3  DOWNTO  0);       
-		  p:  OUT  STD_LOGIC_VECTOR  (7  DOWNTO  0)); 
-END multiplier; 
+entity multiplier is 
+	port( a ,b : in STD_LOGIC_VECTOR  (3  DOWNTO  0);       
+		  p : out STD_LOGIC_VECTOR  (7  DOWNTO  0)); 
+end multiplier; 
 
 architecture dataflow of multiplier is
 	
@@ -36,7 +36,7 @@ architecture dataflow of multiplier is
     signal is13_22,is12_22,is12_21,is11_21,is11_20,is10_20 : STD_LOGIC; -- second row
     signal is23_32,is22_32,is22_31,is21_31,is21_30,is20_30 : STD_LOGIC; -- third row
     signal is33_42,is32_42,is32_41,is31_41,is31_40,is30_40 : STD_LOGIC; -- fourth row
-    signal is42_42,is40_41 : STD_LOGIC; -- last row
+    signal is41_42,is40_41 : STD_LOGIC; -- last row
     signal nil : STD_LOGIC; -- ZERO signal
 
 begin
@@ -119,7 +119,7 @@ begin
 								andA => a(3), 
 								andB => b(0), 
 								sum => p(3),
-								carry => is30_40;
+								carry => is30_40);
 
 	AB_31 : AdderBlock PORT MAP(adderA => is22_31, 
 								adderB => is21_31, 
@@ -159,4 +159,4 @@ begin
 	
 
 
-end architecture ; -- dataflow
+end dataflow; -- dataflow
