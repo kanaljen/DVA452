@@ -2,11 +2,14 @@
 library IEEE;
 use IEEE.Std_logic_1164.all;
 
----------------
-ENTITY testbench IS
-END testbench;
+----------------------------------------------
+-------- Testbench for full_adder.vhd --------
+----------------------------------------------
 
-ARCHITECTURE signaltest OF testbench IS
+ENTITY full_adder_tb IS
+END full_adder_tb;
+
+ARCHITECTURE signaltest OF full_adder_tb IS
 
     component full_adder is
         Port ( A :  in STD_LOGIC;       -- First input
@@ -16,67 +19,72 @@ ARCHITECTURE signaltest OF testbench IS
                S : out STD_LOGIC);      -- Adder out
     end component;
 
-    -- signal declaration
-    signal A : STD_LOGIC;
-    signal B : STD_LOGIC;
-    signal CIN : STD_LOGIC;
-    signal COUT : STD_LOGIC;
-    signal S : STD_LOGIC; 
+    -- intermediate signal declaration
+    signal a : STD_LOGIC;
+    signal b : STD_LOGIC;
+    signal cin : STD_LOGIC;
+    signal cout : STD_LOGIC;
+    signal s : STD_LOGIC; 
 
 BEGIN
-
-    full_adder_ports: full_adder port map (A, B, CIN, COUT,S);
+    
+    -- instantiation of component
+    fa: full_adder port map (A => a,
+                             B => b, 
+                             CIN => cin, 
+                             COUT => cout,
+                             S => s);
 
     PROCESS
 
         BEGIN
         -- 80 ns test
         -- testcase 1
-        A <= '0';
-        B <= '0';
-        CIN <= '0';
+        a <= '0';
+        b <= '0';
+        cin <= '0';
         WAIT for 10 ns;
 
         -- testcase 2
-        A <= '1';
-        B <= '0';
-        CIN <= '0';
+        a <= '1';
+        b <= '0';
+        cin <= '0';
         WAIT for 10 ns;
 
         -- testcase 3
-        A <= '0';
-        B <= '1';
-        CIN <= '0';
+        a <= '0';
+        b <= '1';
+        cin <= '0';
         WAIT for 10 ns;
 
         -- testcase 4
-        A <= '1';
-        B <= '1';
-        CIN <= '0';
+        a <= '1';
+        b <= '1';
+        cin <= '0';
         WAIT for 10 ns;
 
         -- testcase 5
-        A <= '0';
-        B <= '0';
-        CIN <= '1';
+        a <= '0';
+        b <= '0';
+        cin <= '1';
         WAIT for 10 ns;
 
         -- testcase 6
-        A <= '1';
-        B <= '0';
-        CIN <= '1';
+        a <= '1';
+        b <= '0';
+        cin <= '1';
         WAIT for 10 ns;
 
         -- testcase 7
-        A <= '0';
-        B <= '1';
-        CIN <= '1';
+        a <= '0';
+        b <= '1';
+        cin <= '1';
         WAIT for 10 ns;
 
         -- testcase 8
-        A <= '1';
-        B <= '1';
-        CIN <= '1';
+        a <= '1';
+        b <= '1';
+        cin <= '1';
         WAIT for 10 ns;
 
     END PROCESS;

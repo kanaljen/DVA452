@@ -1,6 +1,10 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+----------------------------------------------
+-------------- 2-bit full-adder --------------
+----------------------------------------------
+
 entity full_adder is
     Port ( A : 	in STD_LOGIC; 		-- First input
            B : 	in STD_LOGIC; 		-- Second input
@@ -12,6 +16,7 @@ end full_adder;
 
 architecture dataflow of full_adder is
 
+	-- intermediate signal declaration
 	signal q1, q2, q3 : STD_LOGIC;
 
 begin
