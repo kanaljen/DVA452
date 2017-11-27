@@ -30,17 +30,53 @@ BEGIN
     PROCESS
 
         BEGIN
-
+        -- 80 ns test
         -- testcase 1
         A <= '0';
         B <= '0';
         CIN <= '0';
         WAIT for 10 ns;
 
-        -- testcase 1
+        -- testcase 2
         A <= '1';
         B <= '0';
         CIN <= '0';
+        WAIT for 10 ns;
+
+        -- testcase 3
+        A <= '0';
+        B <= '1';
+        CIN <= '0';
+        WAIT for 10 ns;
+
+        -- testcase 4
+        A <= '1';
+        B <= '1';
+        CIN <= '0';
+        WAIT for 10 ns;
+
+        -- testcase 5
+        A <= '0';
+        B <= '0';
+        CIN <= '1';
+        WAIT for 10 ns;
+
+        -- testcase 6
+        A <= '1';
+        B <= '0';
+        CIN <= '1';
+        WAIT for 10 ns;
+
+        -- testcase 7
+        A <= '0';
+        B <= '1';
+        CIN <= '1';
+        WAIT for 10 ns;
+
+        -- testcase 8
+        A <= '1';
+        B <= '1';
+        CIN <= '1';
         WAIT for 10 ns;
 
     END PROCESS;
