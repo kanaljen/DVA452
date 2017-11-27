@@ -2,12 +2,12 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 
 ENTITY AdderBlock IS
-    PORT ( adderA : in STD_LOGIC;
-           adderB : in STD_LOGIC;
-           andA : in STD_LOGIC;
-           andB : in STD_LOGIC;
-           sum : out STD_LOGIC;
-           carry : out STD_LOGIC);
+    PORT ( adderA : in STD_LOGIC;   -- first input for the full adder
+           adderB : in STD_LOGIC;   -- second imput for the full adder
+           andA : in STD_LOGIC;     -- first input for the and gate
+           andB : in STD_LOGIC;     -- second imput for the and gate
+           sum : out STD_LOGIC;     -- the sum output
+           carry : out STD_LOGIC);  -- the carry output
 END AdderBlock;
 
 ARCHITECTURE adderBlockDataFlow of AdderBlock IS
