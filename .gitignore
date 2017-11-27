@@ -29,3 +29,4 @@ Temporary Items
 # GHDL files
 *.cf
 *.vcd
+*.gtkw
