@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+USE work.all;
 
 ----------------------------------------------
 ----------------- Multiplier -----------------
@@ -10,7 +11,7 @@ entity multiplier is
 		  p : out STD_LOGIC_VECTOR  (7  DOWNTO  0)); 
 end multiplier; 
 
-architecture dataflow of multiplier is
+architecture multiarch of multiplier is
 	
 	-- just the full adder component
     component full_adder is
@@ -57,7 +58,7 @@ begin
 	is02_11 <= a(0) and b(2);
 
 	-- AND_03
-	is02_11 <= a(0) and b(3);
+	is03_12 <= a(0) and b(3);
 
 	-- AND_13
 	is13_22 <= a(1) and b(3);
@@ -146,8 +147,8 @@ begin
 								S => p(4));   	 ----------- ?????????
 
 	FA_41 : full_adder PORT MAP(A => is32_41,
-								B => is40_41,
-								CIN => is30_40,
+								B => is31_41,
+								CIN => is40_41,
 								COUT => is41_42, ----------- ?????????
 								S => p(5));   	 ----------- ?????????
 
@@ -159,4 +160,4 @@ begin
 	
 
 
-end dataflow; -- dataflow
+end architecture; -- multiarch
