@@ -28,24 +28,65 @@ BEGIN
                                 b => b, 
                                 p => p);
 
+
     PROCESS
 
         BEGIN
-        -- 80 ns test
-        -- testcase 1 (2*2=4)
-        a <= "0010";
-        b <= "0010";
-        WAIT for 10 ns;
 
-        -- testcase 2 (4*4=16)
-        a <= "0100";
-        b <= "0100";
-        WAIT for 10 ns;
-
-        -- testcase 3 (0*0=0)
+        -- Testcase 1, all zero
         a <= "0000";
         b <= "0000";
         WAIT for 10 ns;
+
+        -- Testcase 2: b is zero
+        for I in 0 to 3 loop
+            a(I) <= '1';
+            WAIT for 10 ns;
+        end loop;
+        a <= "0000";
+
+        -- Zero Divider
+        a <= "0000";
+        b <= "0000";
+        WAIT for 10 ns;
+
+        -- Testcase 2: a is zero
+        for J in 0 to 3 loop
+            b(J) <= '1';
+            WAIT for 10 ns;
+        end loop;
+        b <= "0000";
+
+        -- Zero Divider
+        a <= "0000";
+        b <= "0000";
+        WAIT for 10 ns;
+
+        -- Testcase 3: Trappor
+        for K in 0 to 3 loop
+            b <= "0000";
+            a(K) <= '1';
+            for L in 0 to 3 loop
+                b(L) <= '1';
+                WAIT for 10 ns;
+            end loop;
+        end loop;
+
+        -- Zero Divider
+        a <= "0000";
+        b <= "0000";
+        WAIT for 10 ns;
+
+        -- Testcase 4: Walking 1:s
+        for K in 0 to 3 loop
+            a(K) <= '1';
+            for L in 0 to 3 loop
+                b(L) <= '1';
+                WAIT for 10 ns;
+                b(L) <= '0';
+            end loop;
+            a(K) <= '0';
+        end loop;
 
 
     END PROCESS;
