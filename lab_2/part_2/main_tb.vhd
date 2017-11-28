@@ -44,7 +44,7 @@ begin
   wait until (clk'EVENT AND clk='1');
   a <= "00000101";
   b <= "00000010";
-  rst <='1';
+  rst <='0';
   ---- testcase 3
   wait until (clk'EVENT AND clk='1');
   a <= "10000100";

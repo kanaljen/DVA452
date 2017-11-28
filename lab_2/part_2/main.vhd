@@ -35,7 +35,7 @@ architecture Behavioral of main_part2 is
     SIGNAL prod: SIGNED (size DOWNTO 0) := (OTHERS => '0');
     SIGNAL sum: SIGNED (size DOWNTO 0) := (OTHERS => '0');
 begin
-    prod <= truncate(a, b, size);
+    prod <= multiply(a, b);
     acc <= sum;
 --U1 : MAC_UNIT PORT MAP(a => a, b => b, sum => sum);
 
