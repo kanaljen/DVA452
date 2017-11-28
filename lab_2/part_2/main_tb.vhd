@@ -12,12 +12,12 @@ architecture bench of main_part2_tb is
   signal stop_the_clock: boolean;
 
   component main_part2
-      PORT( a, b: IN SIGNED (size DOWNTO 0);
+      PORT( a, b: IN SIGNED (3 DOWNTO 0);
           clk, rst: IN STD_LOGIC;
           acc: OUT SIGNED (size DOWNTO 0));
   end component;
 
-  signal a, b: SIGNED (size DOWNTO 0);
+  signal a, b: SIGNED (3 DOWNTO 0);
   signal acc: SIGNED (size DOWNTO 0);
   SIGNAL clk: STD_LOGIC;
   SIGNAL rst: STD_LOGIC;
@@ -33,27 +33,27 @@ begin
   stimulus: process
   begin
   rst <= '0';
-  a <= "00000100";
-  b <= "00000101";
+  a <= "0100";
+  b <= "0101";
     ---- testcase 1
   wait until (clk'EVENT AND clk='1');
-  a <= "00000100";
-  b <= "00000101";
+  a <= "0100";
+  b <= "0101";
   rst <='0';
   ---- testcase 2
   wait until (clk'EVENT AND clk='1');
-  a <= "00000101";
-  b <= "00000010";
+  a <= "0101";
+  b <= "0010";
   rst <='0';
   ---- testcase 3
   wait until (clk'EVENT AND clk='1');
-  a <= "10000100";
-  b <= "10000111";
+  a <= "0100";
+  b <= "0111";
    
     ---- testcase 2
   wait until (clk'EVENT AND clk='1');
-  a <= "01000101";
-  b <= "01000010";
+  a <= "0101";
+  b <= "0010";
   wait until (clk'EVENT AND clk='1');
   
     stop_the_clock <= true;

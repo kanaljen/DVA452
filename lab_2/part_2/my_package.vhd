@@ -63,7 +63,7 @@ VARIABLE is23_32,is22_32,is22_31,is21_31,is21_30,is20_30 : STD_LOGIC; -- third r
 VARIABLE is33_42,is32_42,is32_41,is31_41,is31_40,is30_40 : STD_LOGIC; -- fourth row
 VARIABLE is41_42,is40_41 : STD_LOGIC; -- last row
 VARIABLE nil : STD_LOGIC; -- ZERO signal
-VARIABLE sum_AB_10, sum_AB_11, sum_AB_12: STD_LOGIC_VECTOR(1 DOWNTO 0);
+VARIABLE sum_AB_10, sum_AB_11, sum_AB_12: STD_LOGIC_VECTOR(1 DOWNTO 0); -- sum of an addBlock (0) = sum, (1) = carry
 VARIABLE sum_AB_20, sum_AB_21, sum_AB_22: STD_LOGIC_VECTOR(1 DOWNTO 0);
 VARIABLE sum_AB_30, sum_AB_31, sum_AB_32: STD_LOGIC_VECTOR(1 DOWNTO 0);
 VARIABLE sum_FA_40, sum_FA_41, sum_FA_42: STD_LOGIC_VECTOR(1 DOWNTO 0);

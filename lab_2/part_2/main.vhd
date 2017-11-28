@@ -26,7 +26,7 @@ use work.my_package_lab2.all;
 
 entity main_part2 is
     GENERIC (size : INTEGER := 7);
-    PORT( a, b: IN SIGNED (size DOWNTO 0);
+    PORT( a, b: IN SIGNED (3 DOWNTO 0);
         clk, rst: IN STD_LOGIC;
         acc: OUT SIGNED (size DOWNTO 0));
 end main_part2;
@@ -36,7 +36,7 @@ architecture Behavioral of main_part2 is
     SIGNAL sum: SIGNED (size DOWNTO 0) := (OTHERS => '0');
 begin
     prod <= multiply(a, b);
-    acc <= sum;
+    acc <= prod;
 --U1 : MAC_UNIT PORT MAP(a => a, b => b, sum => sum);
 
 PROCESS (clk, rst)
