@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rm work-obj93.cf # Ta bort gamla objectfilen
+
+# Kompilera alla componenter, samt tb
+ghdl -a *.vhd 
+
+# Kör skiten
+ghdl -r arithmictest --vcd=testbench.vcd --stop-time=440ns
