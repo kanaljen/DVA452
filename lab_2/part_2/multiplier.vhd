@@ -7,7 +7,7 @@ USE work.all;
 ----------------------------------------------
 
 entity multiplier is
-    generic(N : INTEGER := 16);
+    generic(N : INTEGER := 16);                             -- Sets the multiplier to 16 bit default
 	port( a ,b : in STD_LOGIC_VECTOR  (N-1  DOWNTO  0);       
 		  p : out STD_LOGIC_VECTOR  (N+N-1  DOWNTO  0)); 
 end multiplier; 
@@ -33,22 +33,25 @@ architecture multiarch of multiplier is
 	           carry : out STD_LOGIC);  -- the carry output
 	end component;
 
-type matrix is array (0 to N-1) of STD_LOGIC_VECTOR(N-1 downto 0); 
-signal sumIn : matrix;
-signal carryIn : matrix;
-signal sum : matrix;
-signal carry : matrix;
-
-signal bottomSumIn : STD_LOGIC_VECTOR(0 to N-1);
-signal bottomSumOut : STD_LOGIC_VECTOR(0 to N-1);
-signal bottomCarryIn : STD_LOGIC_VECTOR(0 to N-1);
-signal bottomCarryOut : STD_LOGIC_VECTOR(0 to N-1);
-signal bottomCarryIn2 : STD_LOGIC_VECTOR(0 to N-1);
+    -- signals for all regular adderblocks defined as matrices
+    type matrix is array (0 to N-1) of STD_LOGIC_VECTOR(N-1 downto 0); 
+    signal sumIn : matrix;
+    signal carryIn : matrix;
+    signal sum : matrix;
+    signal carry : matrix;
+    
+    -- input output signals for the bottom adderblocks
+    signal bottomSumIn : STD_LOGIC_VECTOR(0 to N-1);
+    signal bottomSumOut : STD_LOGIC_VECTOR(0 to N-1);
+    signal bottomCarryIn : STD_LOGIC_VECTOR(0 to N-1);
+    signal bottomCarryOut : STD_LOGIC_VECTOR(0 to N-1);
+    signal bottomCarryIn2 : STD_LOGIC_VECTOR(0 to N-1);
 
 begin
 	
-    b_loop : for i in 0 to N-1 generate
-        a_loop : for j in 0 to N-1 generate
+	-- generates all regular adderblocks
+    a_loop : for i in 0 to N-1 generate
+        b_loop : for j in 0 to N-1 generate
             AB : AdderBlock PORT MAP(adderA => sumIn(i)(j), 
                                      adderB => carryIn(i)(j),
                                      andA => a(i),
@@ -58,8 +61,9 @@ begin
         end generate;
     end generate;
     
+    -- generates the bottom most adderblocks which are just basicly adders
     final_row_loop : for j in 0 to N-2 generate
-        bottomAdders : AdderBlock PORT MAP(   adderA => bottomSumIn(j), 
+        bottomAB : AdderBlock PORT MAP( adderA => bottomSumIn(j), 
                                         adderB => bottomCarryIn(j),
                                         andA => bottomCarryIn2(j),
                                         andB => bottomCarryIn2(j),
@@ -67,23 +71,23 @@ begin
                                         carry => bottomCarryOut(j));
     end generate;
     
-    -- Initializes all carry ins on the top most adderblocks
-    init_carryIn : for j in 0 to N-1 generate
+    -- Initializes all sum ins on the top most adderblocks to 0
+    init_sumIn : for j in 0 to N-1 generate
         sumIn(0)(j) <= '0';
     end generate;
     
     -- Sets the connection for all sum ins as the upper left adjecent adderblock
-    carryIn_a_loop : for i in 1 to N-1 generate
-        carryIn_b_loop : for j in 0 to N-2 generate
+    sumIn_a_loop : for i in 1 to N-1 generate
+        sumIn_b_loop : for j in 0 to N-2 generate
             sumIn(i)(j) <= sum(i-1)(j+1);
         end generate;
         sumIn(i)(N-1) <= '0'; -- Sets the left most adderblocks sum in to 0
     end generate;
     
     -- Sets all carry ins to the upper adjecent adderblock carry out
-    sumIn_a_loop : for j in 0 to N-1 generate
+    carryIn_b_loop : for j in 0 to N-1 generate
         carryIn(0)(j) <= '0';                   -- sets the uppermost adderblcks carry in to 0
-        sumIn_b_loop : for i in 1 to N-1 generate
+        carryIn_a_loop : for i in 1 to N-1 generate
             carryIn(i)(j) <= carry(i-1)(j);
         end generate;
     end generate;
@@ -95,7 +99,7 @@ begin
     
     -- sets the second carry in on the bottom adderblocks to the right carry out
     bottomCarryIn2(0) <= '0';                       -- Sets the ritghtmost adderblocks second carry in to 0
-    bottom_carry_loop : for j in 1 to N-2 generate
+    bottom_carryIn2_loop : for j in 1 to N-2 generate
             bottomCarryIn2(j) <= carry(N-1)(j-1);
     end generate;
 
