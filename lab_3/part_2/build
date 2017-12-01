@@ -6,4 +6,4 @@ rm work-obj93.cf # Ta bort gamla objectfilen
 ghdl -a --std=02 --ieee=synopsys *.vhd
 
 # Kör skiten
-ghdl -r fsm --vcd=wave_fsm.vcd --stop-time=100ns
+ghdl -r fsm --vcd=sim_fsm.vcd --stop-time=100ns
