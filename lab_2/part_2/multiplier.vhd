@@ -1,13 +1,12 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-USE work.all;
 
 ----------------------------------------------
 ----------------- Multiplier -----------------
 ----------------------------------------------
 
 entity multiplier is
-    generic(N : INTEGER := 16);                             -- Sets the multiplier to 16 bit default
+    generic(N : INTEGER := 4);                             -- Sets the multiplier to 16 bit default
 	port( a ,b : in STD_LOGIC_VECTOR  (N-1  DOWNTO  0);       
 		  p : out STD_LOGIC_VECTOR  (N+N-1  DOWNTO  0)); 
 end multiplier; 
