@@ -1,43 +1,24 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date: 11/24/2017 03:11:37 PM
--- Design Name: 
--- Module Name: main_part2 - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
-
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.std_logic_arith.all;
-use work.my_package_lab2.all;
+use work.MAC_Package.all;
 
-entity main_part2 is
-    GENERIC (size : INTEGER := 7);
-    PORT( a, b: IN SIGNED (3 DOWNTO 0);
+entity MAC_Unit is
+    GENERIC (size : INTEGER := 4);
+    PORT( a, b: IN STD_LOGIC_VECTOR (size-1 DOWNTO 0);
         clk, rst: IN STD_LOGIC;
-        acc: OUT SIGNED (size DOWNTO 0));
-end main_part2;
+        acc: OUT STD_LOGIC_VECTOR (size+size-1 DOWNTO 0));
+end MAC_Unit;
 
-architecture Behavioral of main_part2 is
-    SIGNAL prod: SIGNED (size DOWNTO 0) := (OTHERS => '0');
-    SIGNAL sum: SIGNED (size DOWNTO 0) := (OTHERS => '0');
+architecture Behavioral of MAC_Unit is
+    SIGNAL prod: STD_LOGIC_VECTOR (size+size-1 DOWNTO 0) := (OTHERS => '0');
+    SIGNAL sum: STD_LOGIC_VECTOR (size+size-1 DOWNTO 0) := (OTHERS => '0');
 begin
-    prod <= multiply(a, b);
-    acc <= prod;
---U1 : MAC_UNIT PORT MAP(a => a, b => b, sum => sum);
+
+    muli : multiplier port map (a => a,
+                                b => b,
+                                p => prod);
+    acc <= sum;
 
 PROCESS (clk, rst)
 BEGIN

@@ -25,6 +25,6 @@ ARCHITECTURE adderBlockDataFlow of AdderBlock IS
 begin
     q1 <= andA AND andB;
     
-    G1 : full_adder PORT MAP(adderA, adderB, q1, carry, sum);
+    G1 : full_adder PORT MAP(A => adderA, B => adderB, CIN => q1, COUT => carry, S => sum);
 
 end adderBlockDataFlow;
