@@ -10,8 +10,8 @@ end fsm;
 architecture process_model of fsm is
 	
 	type state is (S0,S1,S2,S3);
-	signal pstate : state := S3; 
-	signal nstate : state := S0; 
+	signal pstate : state := S0; 
+	signal nstate : state; 
 
 	begin -- process_model arch
 
@@ -19,7 +19,9 @@ architecture process_model of fsm is
 		
 		begin
 
-		pstate <= nstate; -- set new present state
+		if rising_edge(clk) then
+			pstate <= nstate; -- set new present state
+		end if;
 
 			case pstate is -- set next state
    				when S0 => nstate <= S1;
@@ -39,7 +41,5 @@ architecture process_model of fsm is
 	out2 <= '1' when (pstate = S0) else
 			'0' when (pstate = S1 AND clk = '1') else
 			'1'	when (pstate = S1 AND clk = '0') else '0';
-
-
 
 end architecture ; -- process_model arch

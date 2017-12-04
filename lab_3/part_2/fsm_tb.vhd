@@ -13,7 +13,7 @@ architecture testbech of fsm_tb is
 
 	end component;
 
-	signal clk : std_logic := '1';
+	signal clk : std_logic;
 	signal out1, out2 : std_logic;
 
 	constant clock_period : time := 10 ns;
@@ -25,7 +25,28 @@ begin
 		out1 => out1,
 		out2 => out2);
 
-	clk <= not clk after clock_period/2; 
+	stim: process
+		begin
+		clk <= '1';
+		wait for clock_period/2;
+		clk <= '0';
+		wait for clock_period/2;
+		clk <= '1';
+		wait for clock_period/2;
+		clk <= '0';
+		wait for clock_period/2;
+		clk <= '1';
+		wait for clock_period/2;
+		clk <= '0';
+		wait for clock_period/2;
+		clk <= '1';
+		wait for clock_period/2;
+		clk <= '0';
+		wait for clock_period/2;
+
+		wait;
+		
+	end process;
 
 end architecture ; -- arch
 
