@@ -27,25 +27,21 @@ begin
 
 	stim: process
 		begin
-		clk <= '1';
-		wait for clock_period/2;
-		clk <= '0';
-		wait for clock_period/2;
-		clk <= '1';
-		wait for clock_period/2;
-		clk <= '0';
-		wait for clock_period/2;
-		clk <= '1';
-		wait for clock_period/2;
-		clk <= '0';
-		wait for clock_period/2;
-		clk <= '1';
-		wait for clock_period/2;
-		clk <= '0';
-		wait for clock_period/2;
+		
+		for i in 0 to 7 loop
+
+			if clk = '1' then
+				clk <= '0';
+			else
+				clk <= '1';
+			end if;
+
+			wait for clock_period/2;
+
+		end loop;
 
 		wait;
-		
+
 	end process;
 
 end architecture ; -- arch
