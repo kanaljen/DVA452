@@ -16,6 +16,8 @@ architecture dataflow of voter is
 
 begin
 	
+	-- Generates for each index in the A, B and CIN inputs an output in each index in COUT  
+	-- if at least two of the three input bits are the same
 	vote_loop : for i in 0 to N-1 generate
 	
 	   -- internal signals+

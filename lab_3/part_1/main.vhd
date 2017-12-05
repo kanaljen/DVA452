@@ -35,6 +35,7 @@ SIGNAL S1,S2,S3 : STD_LOGIC_VECTOR(14 DOWNTO 0);
 
 begin
 
+-- First instance of the adder
 adder1 : c_addsub
   PORT MAP (
     A => A,
@@ -44,15 +45,17 @@ adder1 : c_addsub
     S => S1
   );
   
+-- Second instance of the adder
 adder2 : c_addsub
     PORT MAP (
-      A => "000000000000001",
+      A => A,
       B => B,
       CLK => CLK,
       CE => '1',
       S => S2
     );
-
+	
+-- Third instance of the adder
 adder3 : c_addsub
   PORT MAP (
     A => A,
@@ -62,20 +65,12 @@ adder3 : c_addsub
     S => S3
   );
   
+-- Instance of the voter (Full adder)
   voter1 : voter
   PORT MAP  (
     A => S1,
     B => S2,
     CIN => S3,
     COUT => S);
-
---voter_process : process(CLK)
---begin
-
---    if(CLK'EVENT and CLK = '1') then 
---    end if;
-
---end process;
-
 
 end Behavioral;
