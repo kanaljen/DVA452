@@ -19,13 +19,13 @@ END COMPONENT MAC_Unit;
 --		  p : out STD_LOGIC_VECTOR); 
 --END COMPONENT multiplier;
 
-FUNCTION truncate (SIGNAL a, b: STD_LOGIC_VECTOR; size: INTEGER) RETURN STD_LOGIC_VECTOR;
+FUNCTION truncate (SIGNAL a, b: SIGNED; size: INTEGER) RETURN SIGNED;
 
 END PACKAGE MAC_Package;
 ------------------- Package body declarations
 PACKAGE BODY MAC_Package IS
-FUNCTION truncate (SIGNAL a, b: STD_LOGIC_VECTOR; size: integer) RETURN STD_LOGIC_VECTOR IS
-VARIABLE result: STD_LOGIC_VECTOR(size downto 0);
+FUNCTION truncate (SIGNAL a, b: SIGNED; size: integer) RETURN SIGNED IS
+VARIABLE result: SIGNED(size downto 0);
     BEGIN   
         result := a + b;
         if(a(a'high) = b(b'high)) then   ---- MEMBER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

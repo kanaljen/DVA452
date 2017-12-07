@@ -1,5 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.std_logic_arith.all;
+use ieee.std_logic_signed.all;
 
 package adder_package is
 
@@ -24,8 +26,8 @@ end component;
 
 component multiplier IS
     generic(N : INTEGER := c_size);                             -- Sets the multiplier to 16 bit default
-    PORT( a ,b : in STD_LOGIC_VECTOR;       
-		  p : out STD_LOGIC_VECTOR); 
+    PORT( a ,b : in SIGNED;       
+		  p : out SIGNED); 
 end component multiplier;
 
 end package adder_package;
@@ -105,11 +107,13 @@ end adderBlockDataFlow;
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.std_logic_arith.all;
+use ieee.std_logic_signed.all;
 
 entity multiplier is
     generic(N : INTEGER := 4);                             -- Sets the multiplier to 16 bit default
-	port( a ,b : in STD_LOGIC_VECTOR  (N-1  DOWNTO  0);       
-		  p : out STD_LOGIC_VECTOR  (N+N-1  DOWNTO  0)); 
+	port( a ,b : in SIGNED  (N-1  DOWNTO  0);       
+		  p : out SIGNED  (N+N-1  DOWNTO  0)); 
 end multiplier; 
 
 architecture multiarch of multiplier is
@@ -134,18 +138,18 @@ architecture multiarch of multiplier is
 	end component;
 
     -- signals for all regular adderblocks defined as matrices
-    type matrix is array (0 to N-1) of STD_LOGIC_VECTOR(N-1 downto 0); 
+    type matrix is array (0 to N-1) of SIGNED(N-1 downto 0); 
     signal sumIn : matrix;
     signal carryIn : matrix;
     signal sum : matrix;
     signal carry : matrix;
     
     -- input output signals for the bottom adderblocks
-    signal bottomSumIn : STD_LOGIC_VECTOR(0 to N-1);
-    signal bottomSumOut : STD_LOGIC_VECTOR(0 to N-1);
-    signal bottomCarryIn : STD_LOGIC_VECTOR(0 to N-1);
-    signal bottomCarryOut : STD_LOGIC_VECTOR(0 to N-1);
-    signal bottomCarryIn2 : STD_LOGIC_VECTOR(0 to N-1);
+    signal bottomSumIn : SIGNED(0 to N-1);
+    signal bottomSumOut : SIGNED(0 to N-1);
+    signal bottomCarryIn : SIGNED(0 to N-1);
+    signal bottomCarryOut : SIGNED(0 to N-1);
+    signal bottomCarryIn2 : SIGNED(0 to N-1);
 
 begin
 	

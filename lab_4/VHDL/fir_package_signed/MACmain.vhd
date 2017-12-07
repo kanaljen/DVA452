@@ -7,18 +7,18 @@ use work.MAC_Package.all;
 
 entity MAC_Unit is
     GENERIC (size : INTEGER := c_size);
-    PORT( xIn, coef, acc: IN STD_LOGIC_VECTOR (size-1 DOWNTO 0);
+    PORT( xIn, coef, acc: IN SIGNED (size-1 DOWNTO 0);
           clk, rst: IN STD_LOGIC;
-          q: OUT STD_LOGIC_VECTOR (size-1 DOWNTO 0);
-          sum: OUT STD_LOGIC_VECTOR (size+size-1 DOWNTO 0));
+          q: OUT SIGNED (size-1 DOWNTO 0);
+          sum: OUT SIGNED (size+size-1 DOWNTO 0));
 end MAC_Unit;
 
 architecture Behavioral of MAC_Unit is
-    SIGNAL prod: STD_LOGIC_VECTOR (size+size-1 DOWNTO 0) := (OTHERS => '0');
-    SIGNAL prodSum: STD_LOGIC_VECTOR (size+size-1 DOWNTO 0) := (OTHERS => '0');
+    SIGNAL prod: SIGNED (size+size-1 DOWNTO 0) := (OTHERS => '0');
+    SIGNAL prodSum: SIGNED (size+size-1 DOWNTO 0) := (OTHERS => '0');
     
-    SIGNAL prodA : STD_LOGIC_VECTOR (size-1 DOWNTO 0) := (OTHERS => '0');
-    SIGNAL prodB : STD_LOGIC_VECTOR (size-1 DOWNTO 0) := (OTHERS => '0');
+    SIGNAL prodA : SIGNED (size-1 DOWNTO 0) := (OTHERS => '0');
+    SIGNAL prodB : SIGNED (size-1 DOWNTO 0) := (OTHERS => '0');
 begin
 
     muli : multiplier port map (a => xIn,
