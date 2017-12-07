@@ -1,72 +1,48 @@
-library IEEE;
-use IEEE.Std_logic_1164.all;
-use IEEE.Numeric_Std.all;
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity fsm_tb is
-end;
+end fsm_tb;
 
-architecture bench of fsm_tb is
+architecture testbech of fsm_tb is
 
-  component fsm
-      Port ( clk : in STD_LOGIC;
-             rst : in STD_LOGIC;
-             out1 : out STD_LOGIC;
-             out2 : out STD_LOGIC);
-  end component;
+	component fsm
 
-  signal clk: STD_LOGIC:='1';
-  signal rst: STD_LOGIC;
-  signal out1: STD_LOGIC;
-  signal out2: STD_LOGIC;
+		port(clk : in std_logic;
+		 	 out1, out2 : out std_logic);
 
-  constant clock_period: time := 10 ns;
-  signal stop_the_clock: boolean;
+	end component;
+
+	signal clk : std_logic;
+	signal out1, out2 : std_logic;
+
+	constant clock_period : time := 10 ns;
 
 begin
+	
+	statemachine: fsm port map(
+		clk => clk,
+		out1 => out1,
+		out2 => out2);
 
-  -- Insert values for generic parameters !!
-  uut: fsm 
-              port map ( clk  => clk,
-                         rst  => rst,
-                         out1 => out1,
-                         out2 => out2 );
+	stim: process
+		begin
+		
+		for i in 0 to 7 loop
 
-  stimulus: process
-  begin
-  
-    -- This test bench code will go through all stages two times
-    
-    wait until (clk'EVENT AND clk = '1');
-    
-    wait until (clk'EVENT AND clk = '1');
-   
-    wait until (clk'EVENT AND clk = '1');
-    
-    wait until (clk'EVENT AND clk = '1');
-    
-    wait until (clk'EVENT AND clk = '1');
-    
-    wait until (clk'EVENT AND clk = '1');
-    
-    wait until (clk'EVENT AND clk = '1');
-    
-    wait until (clk'EVENT AND clk = '1');
+			if clk = '1' then
+				clk <= '0';
+			else
+				clk <= '1';
+			end if;
 
-    wait until (clk'EVENT AND clk = '1');
-    
-    -- test bench stimulus code 
+			wait for clock_period/2;
 
-    stop_the_clock <= true;
-    wait;
-  end process;
+		end loop;
 
-  clocking: process
-  begin
-    while not stop_the_clock loop
-      clk <= '1', '0' after clock_period / 2;
-      wait for clock_period;
-    end loop;
-    wait;
-  end process;
+		wait;
 
-end;
+	end process;
+
+end architecture ; -- arch
+
