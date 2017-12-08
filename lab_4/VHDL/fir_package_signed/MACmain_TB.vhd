@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.Std_logic_1164.all;
 use IEEE.std_logic_arith.all;
+use ieee.std_logic_signed.all;
 use work.all;
 
 entity main_part2_tb is
@@ -13,14 +14,14 @@ architecture bench of main_part2_tb is
   signal stop_the_clock: boolean;
 
   component MAC_Unit
-      PORT( xIn, coef, acc: IN STD_LOGIC_VECTOR (size-1 DOWNTO 0);
+      PORT( xIn, coef, acc: IN SIGNED (size-1 DOWNTO 0);
             clk, rst: IN STD_LOGIC;
-            q: OUT STD_LOGIC_VECTOR (size-1 DOWNTO 0);
-            sum: OUT STD_LOGIC_VECTOR (size+size-1 DOWNTO 0));
+            q: OUT SIGNED (size-1 DOWNTO 0);
+            sum: OUT SIGNED (size+size-1 DOWNTO 0));
   end component;
 
-  signal xIn, coef, acc: STD_LOGIC_VECTOR (size-1 DOWNTO 0);
-  signal sum: STD_LOGIC_VECTOR (size+size-1 DOWNTO 0);
+  signal xIn, coef, acc: SIGNED (size-1 DOWNTO 0);
+  signal sum: SIGNED (size+size-1 DOWNTO 0);
   SIGNAL clk: STD_LOGIC;
   SIGNAL rst: STD_LOGIC;
 
