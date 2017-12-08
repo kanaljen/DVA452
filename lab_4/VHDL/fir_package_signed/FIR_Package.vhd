@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_arith.all;
+use IEEE.std_logic_signed.all;
 
 package FIR_Package is
 
@@ -9,10 +10,10 @@ constant M : INTEGER := 4; -- m= # of bits of input and coef.
 TYPE coefficient IS ARRAY (N-1 DOWNTO 0) OF SIGNED(M-1 DOWNTO 0);
 
 component FIR
-    PORT (x: in SIGNED (M-1 DOWNTO 0);
-        coef: in coefficient;
-        clk, rst: in STD_LOGIC;
-        y: out SIGNED(M+M-1 DOWNTO 0));
+      PORT (x: in SIGNED (M-1 DOWNTO 0);
+            coef: in coefficient;
+            clk, rst: in STD_LOGIC;
+            y: out SIGNED(M+M-1 DOWNTO 0));
 end component;
 
 end package;
