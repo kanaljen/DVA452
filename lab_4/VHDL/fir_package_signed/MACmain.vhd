@@ -7,7 +7,8 @@ use work.MAC_Package.all;
 
 entity MAC_Unit is
     GENERIC (size : INTEGER := c_size);
-    PORT( xIn, coef, acc: IN SIGNED (size-1 DOWNTO 0);
+    PORT( xIn, coef: IN SIGNED (size-1 DOWNTO 0);
+          acc: IN SIGNED(size+size-1 DOWNTO 0);
           clk, rst: IN STD_LOGIC;
           q: OUT SIGNED (size-1 DOWNTO 0);
           sum: OUT SIGNED (size+size-1 DOWNTO 0));
@@ -65,7 +66,7 @@ BEGIN
 --    END IF;
         
     IF (rst = '1') THEN
-        prodSum <= (others => '0');
+        q <= (others => '0');
     ELSIF (clk'EVENT AND CLK = '1') THEN
         q <= xIn;
     END IF;
