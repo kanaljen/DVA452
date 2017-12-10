@@ -20,9 +20,10 @@ architecture bench of fir_tb is
             y: out SIGNED(M+M-1 DOWNTO 0));
   end component;
 
-  signal xIn, acc, q: SIGNED (N-1 DOWNTO 0);
+  signal xIn: SIGNED (N-1 DOWNTO 0);
   signal coef: coefficient;
-  signal sum: SIGNED (N+N-1 DOWNTO 0);
+  signal y: SIGNED (N+N-1 DOWNTO 0);
+  
   SIGNAL clk: STD_LOGIC;
   SIGNAL rst: STD_LOGIC;
 
@@ -39,31 +40,40 @@ begin
                            coef => coef,
                            clk => clk,
                            rst => rst,
-                           y => sum);
+                           y => y);
 
   stimulus: process
   begin
-  acc <= "0000";
   rst <= '0';
-  xIn <= "1000";
-  coef(0) <= "0101";
+  xIn <= "0001";
+  coef(0) <= "0001";
+  coef(1) <= "0001";
+  coef(2) <= "0001";
+  coef(3) <= "0001";
     ---- testcase 1
   wait until (clk'EVENT AND clk='1');
-  xIn <= "1100";
-  coef(0) <= "1101";
---  rst <='0';
---  ---- testcase 2
---  wait until (clk'EVENT AND clk='1');
---  xIn <= "0101";
---  coef <= "1010";
---  rst <='0';
---  ---- testcase 3
---  wait until (clk'EVENT AND clk='1');
---  xIn <= "0100";
---  coef <= "0111";
-   
---    ---- testcase 2
---  wait until (clk'EVENT AND clk='1');
+  xIn <= "0001";
+  
+  ---- testcase 2
+  wait until (clk'EVENT AND clk='1');
+  xIn <= "0001";
+  
+  ---- testcase 3
+  wait until (clk'EVENT AND clk='1');
+  xIn <= "0001";
+  
+    ---- testcase 2
+  wait until (clk'EVENT AND clk='1');
+  
+  wait until (clk'EVENT AND clk='1');
+  
+  wait until (clk'EVENT AND clk='1');
+  
+  wait until (clk'EVENT AND clk='1');
+  
+  wait until (clk'EVENT AND clk='1');
+  
+  wait until (clk'EVENT AND clk='1');
 --  xIn <= "0101";
 --  coef <= "0010";
 --  rst <='0';

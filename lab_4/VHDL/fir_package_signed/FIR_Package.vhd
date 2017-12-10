@@ -54,23 +54,24 @@ begin
                             q => q(0),
                             sum => sum(0));
     
---    mac_loop : for i in 1 to N-1 generate
---        MU : MAC_Unit port map( xIn => xin(i-1), 
---                                coef => coef(i), 
---                                acc => acc(i),
---                                clk => clk, 
---                                rst => rst,
---                                q => q(i),
---                                sum => sum(i));
---    end generate;
+    mac_loop : for i in 1 to N-1 generate
+        MU : MAC_Unit port map( xIn => xin(i-1), 
+                                coef => coef(i), 
+                                acc => acc(i),
+                                clk => clk, 
+                                rst => rst,
+                                q => q(i),
+                                sum => sum(i));
+    end generate;
     
     
     acc(0) <= (others => '0');
---    q_loop : for i in 1 to N-1 generate
---        xin(i) <= q(i-1);
---        acc(i) <= sum(i-1);
---    end generate;
+    q_loop : for i in 1 to N-1 generate
+        xin(i) <= q(i-1);
+        acc(i) <= sum(i-1);
+    end generate;
+    
+    y <= sum(N-1);
 
-    y <= sum(0);
     
 end filter;
