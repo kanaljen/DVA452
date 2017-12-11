@@ -55,7 +55,7 @@ begin
                             sum => sum(0));
     
     mac_loop : for i in 1 to N-1 generate
-        MU : MAC_Unit port map( xIn => xin(i-1), 
+        MU : MAC_Unit port map( xIn => xin(i), 
                                 coef => coef(i), 
                                 acc => acc(i),
                                 clk => clk, 
@@ -66,12 +66,20 @@ begin
     
     
     acc(0) <= (others => '0');
+--    acc_loop : for i in 1 to N-1 generate
+--        acc(0)(i) <= '0';
+--    end generate;
+    
     q_loop : for i in 1 to N-1 generate
         xin(i) <= q(i-1);
         acc(i) <= sum(i-1);
     end generate;
-    
-    y <= sum(N-1);
-
-    
+-----The last DFF--------------
+    PROCESS(clk) 
+    BEGIN
+        IF (clk'EVENT AND CLK = '1') THEN
+            y <= sum(N-1);
+        END IF;
+    END PROCESS;
+-------------------------------    
 end filter;

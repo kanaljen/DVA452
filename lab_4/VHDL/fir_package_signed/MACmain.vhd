@@ -17,53 +17,53 @@ end MAC_Unit;
 architecture Behavioral of MAC_Unit is
     SIGNAL prod: SIGNED (size+size-1 DOWNTO 0) := (OTHERS => '0');
     SIGNAL prodSum: SIGNED (size+size-1 DOWNTO 0) := (OTHERS => '0');
-    
+    SIGNAL xInU : SIGNED(size-1 DOWNTO 0) := (OTHERS => '0');   -- SIGNAL for convert negative number to positive
+    SIGNAL coefU : SIGNED (size-1 DOWNTO 0) := (OTHERS => '0');   -- SIGNAL for convert negative number to positive
     SIGNAL prodA : SIGNED (size-1 DOWNTO 0) := (OTHERS => '0');
     SIGNAL prodB : SIGNED (size-1 DOWNTO 0) := (OTHERS => '0');
+    
 begin
 
-    muli : multiplier port map (a => xIn,
-                                b => coef,
+    PROCESS (xIn, coef)
+    BEGIN
+        xInU <= xIn;
+        coefU <= coef;
+        IF(xIn(xIn'high) = '1') THEN
+            xInU <= convPosToNeg(xIn, size-1);
+        END IF;
+        IF(coef(coef'high) = '1') THEN
+            coefU <= convPosToNeg(coef, size-1);  
+        END IF;
+    END PROCESS;
+    
+    muli : multiplier port map (a => xInU,
+                                b => coefU,
                                 p => prod);
     
-    sum <= prodSum;
+    
+
+    
+
+
+PROCESS(prod)
+BEGIN
+    IF(xIn(xIn'high) /= coef(coef'high)) THEN
+        prodSum <= convPosToNeg(prod, size+size-1);
+    ELSE
+        prodSum <= prod;
+    END IF;
+END PROCESS;
+
+PROCESS(prodSum)
+BEGIN
+    Sum <= truncate(prodSum,acc, size+size-1); 
+END PROCESS;
 
 PROCESS (clk, rst)
 
 -- variable negativeProd : bit := '0';
-
+--VARIABLE prodC : SIGNED (size+size-1 DOWNTO 0);
 BEGIN
--- För negativa tal
--- TODO
--- lägga på 1 på prod talet
--- bestämma om negativt efter mult
---    IF (a(a'high) = '1') THEN
---        for i in 0 to a'high loop
---            if(a(i) = '1') then
---                prodA(i) <= '0';
---            else
---                prodA(i) <= '1';
---            end if;
---        end loop;
---        if( negativeProd = '0') then
---            negativeProd := '1';
---        end if;
---    END IF;
---    IF(b(b'high) = '1') THEN
---        for i in 0 to b'high loop
---            if(b(i) = '1') then
---                prodB(i) <= '0';
---            else
---                prodB(i) <= '1';
---            end if;
---            prodB <= prodB + 1;
---        end loop;
---        if( negativeProd = '0') then
---            negativeProd := '1';
---        elsif
---            negativeProd
---        end if;
---    END IF;
         
     IF (rst = '1') THEN
         q <= (others => '0');
@@ -71,7 +71,7 @@ BEGIN
         q <= xIn;
     END IF;
     
-    prodSum <= truncate(prod,acc, size+size-1);
+    
 END PROCESS;
 
 END Behavioral;

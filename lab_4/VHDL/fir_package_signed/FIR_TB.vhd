@@ -44,19 +44,20 @@ begin
 
   stimulus: process
   begin
+  --rst <= '1';
   rst <= '0';
-  xIn <= "0001";
+  xIn <= "1001";
   coef(0) <= "0001";
   coef(1) <= "0001";
   coef(2) <= "0001";
   coef(3) <= "0001";
     ---- testcase 1
   wait until (clk'EVENT AND clk='1');
+  --rst <= '0';
   xIn <= "0001";
-  
   ---- testcase 2
   wait until (clk'EVENT AND clk='1');
-  xIn <= "0001";
+  xIn <= "0010";
   
   ---- testcase 3
   wait until (clk'EVENT AND clk='1');
