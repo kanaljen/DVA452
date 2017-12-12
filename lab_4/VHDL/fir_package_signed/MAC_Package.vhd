@@ -8,7 +8,7 @@ PACKAGE MAC_Package IS
 COMPONENT MAC_Unit is
     GENERIC (size : INTEGER := c_size);
     PORT( xIn, coef: IN SIGNED (size-1 DOWNTO 0);
-          acc: IN SIGNED (size+size-1 downto 0);
+          acc: IN SIGNED(size+size-1 DOWNTO 0);
           clk, rst: IN STD_LOGIC;
           q: OUT SIGNED (size-1 DOWNTO 0);
           sum: OUT SIGNED (size+size-1 DOWNTO 0));
@@ -21,8 +21,7 @@ END COMPONENT MAC_Unit;
 --END COMPONENT multiplier;
 
 FUNCTION truncate (SIGNAL a, b: SIGNED; size: INTEGER) RETURN SIGNED;
-FUNCTION convPosToNeg(SIGNAl a: SIGNED; size: integer) RETURN SIGNED;
- 
+
 END PACKAGE MAC_Package;
 ------------------- Package body declarations
 PACKAGE BODY MAC_Package IS
@@ -44,19 +43,4 @@ VARIABLE result: SIGNED(size downto 0);
     return result;
 END function truncate;
 
-FUNCTION convPosToNeg(SIGNAL a: SIGNED; size: integer)RETURN SIGNED IS
-VARIABLE result: SIGNED(size downto 0);
-VARIABLE b: UNSIGNED(size downto 0);
-BEGIN
-    b := UNSIGNED(a);
-    b := b-1;
-    for i in 0 to b'high loop
-        if(b(i) = '1') then
-            result(i) := '0';
-        else
-            result(i):= '1';
-        end if;
-    end loop;
-    return  result;
-END FUNCTION convPosToNeg; 
 end package body MAC_Package;
