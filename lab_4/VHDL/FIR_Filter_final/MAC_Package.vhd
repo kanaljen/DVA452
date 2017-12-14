@@ -14,12 +14,6 @@ COMPONENT MAC_Unit is
           sum: OUT SIGNED (size+size-1 DOWNTO 0));
 END COMPONENT MAC_Unit;
 
---COMPONENT multiplier IS
---    generic(N : INTEGER := 16);                             -- Sets the multiplier to 16 bit default
---    PORT( a ,b : in STD_LOGIC_VECTOR;       
---		  p : out STD_LOGIC_VECTOR); 
---END COMPONENT multiplier;
-
 FUNCTION truncate (SIGNAL a, b: SIGNED; size: INTEGER) RETURN SIGNED;
 FUNCTION convPosToNeg(SIGNAl a: SIGNED; size: integer) RETURN SIGNED;
 
@@ -30,7 +24,7 @@ FUNCTION truncate (SIGNAL a, b: SIGNED; size: integer) RETURN SIGNED IS
 VARIABLE result: SIGNED(size downto 0);
     BEGIN   
         result := a + b;
-        if(a(a'high) = b(b'high)) then   ---- MEMBER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if(a(a'high) = b(b'high)) then
             if(result(result'high) /= a(a'high)) then
                 if(a(a'high) = '0') then
                     result := (result'high => '0', others => '1');

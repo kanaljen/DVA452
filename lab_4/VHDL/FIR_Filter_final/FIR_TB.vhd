@@ -29,42 +29,27 @@ architecture bench of fir_tb is
 
 begin
 
---  uut: MAC_Unit port map ( xIn   => xIn,
---                             coef   => coef,
---                             acc => acc,
---                             clk => clk,
---                             rst => rst,                             
---                             sum => sum );
-
-    filter : FIR port map (x => xIn,
-                           coef => coef,
-                           clk => clk,
-                           rst => rst,
-                           y => y);
+  filter : FIR port map (x => xIn,
+                         coef => coef,
+                         clk => clk,
+                         rst => rst,
+                         y => y);
 
   stimulus: process
   begin
-  --rst <= '1';
-  --wait for 10 ns;
   rst <= '0';
   xIn <= "1101";
   coef(0) <= "0010";
   coef(1) <= "1111";
   coef(2) <= "1111";
   coef(3) <= "1110";
-    ---- testcase 1
-  --wait until (clk'EVENT AND clk='1');
-  --rst <= '0';
+
   wait for 10 ns;
-  ---- testcase 2
- -- wait until (clk'EVENT AND clk='1');
-   xIn <= "0101";
+
+  xIn <= "0101";
   
-  ---- testcase 3
   wait until (clk'EVENT AND clk='1');
   
-  
-    ---- testcase 2
   wait until (clk'EVENT AND clk='1');
   
   wait until (clk'EVENT AND clk='1');
@@ -76,20 +61,9 @@ begin
   wait until (clk'EVENT AND clk='1');
   
   wait until (clk'EVENT AND clk='1');
---  xIn <= "0101";
---  coef <= "0010";
---  rst <='0';
---  wait until (clk'EVENT AND clk='1');
---  xIn <= "0101";
---  coef <= "1010";
---  rst <='1';
---  wait until (clk'EVENT AND clk='1');
---  xIn <= "0100";
---  coef <= "0011";
---  wait until (clk'EVENT AND clk='1');
-  
-    stop_the_clock <= true;
-    wait;
+
+  stop_the_clock <= true;
+  wait;
   end process;
   
 clocking: process
