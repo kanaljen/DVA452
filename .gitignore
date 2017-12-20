@@ -19,6 +19,7 @@ Icon
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
+
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
@@ -30,3 +31,9 @@ Temporary Items
 *.cf
 *.vcd
 *.gtkw
+
+# Python PyCharm files and virtualenv
+project/Train_Mnist/lib/
+project/Train_Mnist/bin/
+project/Train_Mnist/.idea/
+project/Train_Mnist/pyvenv.cfg
