@@ -16,15 +16,15 @@ architecture bench of net_tb is
  
 
   component NET
-      PORT (x: IN INPUTMATRIXARRAY;
+      PORT (x: IN INPUTARRAY;
         clk, rst: IN STD_LOGIC;
-        weight: IN INPUTARRAY;
-        y: OUT INPUTMATRIX);
+        weight: IN WEIGHTINPUTMATRIX;
+        y: OUT SIGNED(M-1 DOWNTO 0));
   end component;
 
-  signal xIn: INPUTMATRIXARRAY;
-  signal weightIN: INPUTARRAY;
-  signal y: INPUTMATRIX;
+  signal xIn: INPUTARRAY;
+  signal weightIN: WEIGHTINPUTMATRIX;
+  signal y: SIGNED(M-1 DOWNTO 0);
   
   SIGNAL clk: STD_LOGIC;
   SIGNAL rst: STD_LOGIC;
@@ -40,21 +40,24 @@ begin
   stimulus: process
   begin
   rst <= '0';
-    weightIN(0) <= "0010";
-    weightIN(1) <= "0010";
-    weightIN(2) <= "0010";
-    weightIN(3) <= "0010";
-  --weightIN <= "0010";
-  --xIN(0) <= "1000";
-  --xIN(1) <= "0001";
-  --xIN(2) <= "0001";
-  --xIN(3) <= "0001";
+    --weightIN(0) <= "0010";
+    --weightIN(1) <= "0010";
+    --weightIN(2) <= "0010";
+    --weightIN(3) <= "0010";   
+  weightIN(0)(0) <= "0010";
+  weightIN(0)(1) <= "0010";
+  xIN(0) <= "1000";
+  xIN(1) <= "0001";
+  xIN(2) <= "0001";
+  xIN(3) <= "0001";
 
   wait for 10 ns;
         
-  for i in 0 to N-1 loop
-      xIn(0)(0)(i) <= "0001";
-  end loop;
+--  for i in 0 to K-1 loop
+--      for j in 0 to N-1 loop
+--          xIn(0)(i)(j) <= "0001";
+--      end loop;
+--  end loop;
   
 
 

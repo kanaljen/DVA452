@@ -8,7 +8,7 @@ PACKAGE NODE_PACKAGE IS
 
 COMPONENT NODE
       PORT (x: IN INPUTARRAY;
-            weight: IN SIGNED;
+            weight: IN SIGNED(M-1 DOWNTO 0);
             clk, rst: IN STD_LOGIC;
             y: OUT SIGNED(M-1 DOWNTO 0));
 end component;
@@ -31,15 +31,16 @@ use work.LUT_package.all;
 
 entity NODE is
     PORT (x: IN INPUTARRAY;
-          weight: IN SIGNED;
+          weight: IN SIGNED(M-1 DOWNTO 0);
           clk, rst: IN STD_LOGIC;
           y: OUT SIGNED(M-1 DOWNTO 0));
 end NODE;
 
 architecture NN of NODE is
 
-    signal weightIN : INPUTARRAY;   -- Holds the x inputs for each MAC
-    signal weightOut : INPUTARRAY;     -- Holds the q outputs for each MAC
+    type matrixWeight is array (0 to N-1) of SIGNED(M-1 DOWNTO 0); 
+    signal weightIN : matrixWeight;   -- Holds the x inputs for each MAC
+    signal weightOut : matrixWeight;     -- Holds the q outputs for each MAC
     
     type matrix is array (0 to N-1) of SIGNED(M+M-1 DOWNTO 0); 
     signal sum : matrix;        -- Holds the sum outputs for each MAC

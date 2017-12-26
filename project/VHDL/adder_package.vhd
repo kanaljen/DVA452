@@ -9,10 +9,12 @@ constant c_size : INTEGER := 4;
 CONSTANT N : INTEGER := 4; -- n= # of MAC's (Inputs in each node).,
 CONSTANT M : INTEGER := 4; -- m= # of bits of input and coef.
 CONSTANT K : INTEGER := 2; -- k= # of Nodes / Layer.,
-CONSTANT L : INTEGER := 2; -- l= # of Layers.,
+CONSTANT L : INTEGER := 1; -- l= # of Layers.,
 TYPE INPUTARRAY IS ARRAY (N-1 DOWNTO 0) OF SIGNED(M-1 DOWNTO 0);
 TYPE INPUTMATRIX IS ARRAY (K-1 DOWNTO 0) OF INPUTARRAY;
 TYPE INPUTMATRIXARRAY IS ARRAY (L-1 DOWNTO 0) OF INPUTMATRIX;
+TYPE WEIGHTINPUTARRAY IS ARRAY (K-1 DOWNTO 0) OF SIGNED(M-1 DOWNTO 0);
+TYPE WEIGHTINPUTMATRIX IS ARRAY (L-1 DOWNTO 0) OF WEIGHTINPUTARRAY;
     
 component full_adder is
     Port ( A : 	in STD_LOGIC; 		-- First input

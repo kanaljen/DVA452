@@ -9,7 +9,7 @@ PACKAGE OUTPUT_NODE_PACKAGE IS
 COMPONENT OUTPUT_NODE
       PORT (x: IN INPUTARRAY;
             clk, rst: IN STD_LOGIC;
-            y: OUT SIGNED(M+M-1 DOWNTO 0));
+            y: OUT SIGNED(M-1 DOWNTO 0));
 end component;
 
 end package;
