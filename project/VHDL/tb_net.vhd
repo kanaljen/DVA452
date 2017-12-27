@@ -4,7 +4,7 @@ use IEEE.std_logic_arith.all;
 use ieee.std_logic_signed.all;
 use work.NODE_Package.all;
 use work.adder_package.all;
-use work.net_package.all;
+--use work.net_package.all;
 
 entity net_tb is
 end;
@@ -15,14 +15,14 @@ architecture bench of net_tb is
   signal stop_the_clock: boolean;
  
 
-  component NET
-      PORT (x: IN INPUTARRAY;
-        clk, rst: IN STD_LOGIC;
-        weight: IN WEIGHTINPUTMATRIX;
-        y: OUT INTEGER);
+  component MLP_NN
+      PORT (x: IN FIRSTINPUTARRAY;
+  clk, rst: IN STD_LOGIC;
+  weight: IN WEIGHTINPUTMATRIX;
+  y: OUT INTEGER);
   end component;
 
-  signal xIn: INPUTARRAY;
+  signal xIn: FIRSTINPUTARRAY;
   signal weightIN: WEIGHTINPUTMATRIX;
   signal y: INTEGER;
   
@@ -31,7 +31,7 @@ architecture bench of net_tb is
 
 begin
 
-  net_net : NET port map (x => xIn,
+  net_net : MLP_NN port map (x => xIn,
                          weight => weightIN,
                          clk => clk,
                          rst => rst,
@@ -46,8 +46,12 @@ begin
     --weightIN(3) <= "0010";   
   weightIN(0)(0) <= "0010";
   weightIN(0)(1) <= "0001";
+ --weightIN(1)(0) <= "0001";
+  --weightIN(1)(1) <= "0010";
   xIN(0) <= "0010";
   xIN(1) <= "0001";
+  xIN(2) <= "0010";
+  xIN(3) <= "0001";
   --xIN(2) <= "0001";
   --xIN(3) <= "0001";
 

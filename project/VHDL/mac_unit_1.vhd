@@ -2,34 +2,32 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.std_logic_arith.all;
 use ieee.std_logic_signed.all;
-use work.node_package.all;
-use work.MAC_Package.all;
 use work.adder_package.all;
+use work.MAC_Package.all;
 
-entity MLP_NN is
+entity MAC_Unit is
     GENERIC (size : INTEGER := c_size);
-    Port ( xIn : IN SIGNED (size-1 DOWNTO 0);
-           weight : IN INPUTARRAY;
-           rst : IN STD_LOGIC;
-           clk : IN STD_LOGIC;
-           y : OUT STD_LOGIC_VECTOR (size-1 downto 0));
-end MLP_NN;
+    PORT( xIn, weightIN: IN SIGNED (size-1 DOWNTO 0);
+          acc: IN SIGNED(size+size-1 DOWNTO 0);
+          clk, rst: IN STD_LOGIC := '0';
+          weightOUT: OUT SIGNED (size-1 DOWNTO 0) := (others => '0');
+          sum: OUT SIGNED (size+size-1 DOWNTO 0));
+end MAC_Unit;
 
-architecture Behavioral of MLP_NN is
-
+architecture Behavioral of MAC_Unit is
     SIGNAL prod: SIGNED (size+size-1 DOWNTO 0);
     SIGNAL prodSum: SIGNED (size+size-1 DOWNTO 0);
     SIGNAL xInU : SIGNED(size-1 DOWNTO 0);   -- SIGNAL for convert negative number to positive
-    SIGNAL coefU : SIGNED (size-1 DOWNTO 0);   -- SIGNAL for convert negative number to positive
+    SIGNAL weightU : SIGNED (size-1 DOWNTO 0);   -- SIGNAL for convert negative number to positive
     
 begin
 
     muli : multiplier port map (a => xInU,
-                                    b => coefU,
+                                    b => weightU,
                                     p => prod);
 
     -- Convert negative number to positive
-    PROCESS (xIn, weight)
+    PROCESS (xIn, weightIN)
     BEGIN
         -- If the most significant bit in xIn is a one the whole xIn is converted
         IF(xIn(xIn'high) = '1') THEN
@@ -37,7 +35,7 @@ begin
         ELSE
             xInU  <= xIn;
         END IF;
-        -- If the most significant bit in weight is a one the whole weight is converted
+        -- If the most significant bit in coef is a one the whole coef is converted
         IF(weightIN(weightIN'high) = '1') THEN
             weightU <= convPosToNeg(weightIN, size-1);
         ELSE
@@ -46,11 +44,11 @@ begin
     END PROCESS;
     
     -- Sets the prodSum
-    PROCESS(prod, xIn, weight)
+    PROCESS(prod, xIn, weightIN)
     BEGIN
-        -- If the most significant bit in xIn and weight is not the same the 
+        -- If the most significant bit in xIn and weightIN is not the same the 
         -- product should be negative, so the prodSum is converted to negative number
-        IF(xIn(xIn'high) /= weight(weight'high)) THEN
+        IF(xIn(xIn'high) /= weightIN(weightIN'high)) THEN
             prodSum <= convPosToNeg(prod, size+size-1);
         ELSE
             prodSum <= prod; -- if the product is not negative
@@ -68,9 +66,9 @@ begin
     PROCESS (clk, rst)
     BEGIN
         IF (rst = '1') THEN
-            q <= (others => '0');
+            weightOUT <= (others => '0');
         ELSIF (clk'EVENT AND CLK = '1') THEN
-            q <= xIn;
+            weightOUT <= weightIN;
         END IF;
     END PROCESS;
 END Behavioral;
