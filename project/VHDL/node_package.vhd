@@ -39,8 +39,8 @@ end NODE;
 architecture NN of NODE is
 
     type matrixWeight is array (0 to N-1) of SIGNED(M-1 DOWNTO 0); 
-    signal weightIN : matrixWeight;   -- Holds the x inputs for each MAC
-    signal weightOut : matrixWeight;     -- Holds the q outputs for each MAC
+    signal weightIN : matrixWeight;   -- Holds the weight inputs for each MAC
+    signal weightOut : matrixWeight;     -- Holds the weight outputs for each MAC
     
     type matrix is array (0 to N-1) of SIGNED(M+M-1 DOWNTO 0); 
     signal sum : matrix;        -- Holds the sum outputs for each MAC
@@ -66,22 +66,15 @@ begin
                            y => node_out);
     end generate;
     
-    weightIN(0) <= weight;                -- Sets the first MACs x input to the FIR x input.
+    weightIN(0) <= weight;                -- Sets the first MACs weight input to the node's weight input.
     acc(0) <= (others => '0');  -- Sets the first MACs acc input to zeros 
-                                -- as the first addition should not change the first product
     y <= node_out;
     mac_to_lut <= sum(N-1);
+    
     -- Generates all the connections between each MAC
     q_loop : for i in 1 to N-1 generate
         weightIN(i) <= weightOUT(i-1);
         acc(i) <= sum(i-1);
     end generate;
     
-    -- Flip-Flops the last sum of the MACs to the y output
-    PROCESS(clk) 
-    BEGIN
-        IF (clk'EVENT AND CLK = '1') THEN
-           -- y <= sum(N-1);
-        END IF;
-    END PROCESS;
 end NN;
