@@ -6,7 +6,7 @@ use ieee.std_logic_signed.all;
 package adder_package is
 
 constant c_size : INTEGER := 4;
-CONSTANT N : INTEGER := 4; -- n= # of MAC's (Inputs in each node).,
+CONSTANT N : INTEGER := 2; -- n= # of MAC's (Inputs in each node).,
 CONSTANT M : INTEGER := 4; -- m= # of bits of input and coef.
 CONSTANT K : INTEGER := 2; -- k= # of Nodes / Layer.,
 CONSTANT L : INTEGER := 1; -- l= # of Layers.,

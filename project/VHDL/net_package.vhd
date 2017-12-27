@@ -12,7 +12,7 @@ COMPONENT NET
       PORT (x: IN INPUTARRAY;
             clk, rst: IN STD_LOGIC;
             weight: IN WEIGHTINPUTMATRIX;
-            y: OUT SIGNED(M-1 DOWNTO 0));
+            y: OUT INTEGER);
 end component;
 
 end package;
@@ -35,14 +35,14 @@ entity NET is
       PORT (x: IN INPUTARRAY;
       clk, rst: IN STD_LOGIC;
       weight: IN WEIGHTINPUTMATRIX;
-      y: OUT SIGNED(M-1 DOWNTO 0));
+      y: OUT INTEGER);
 end NET;
 
 architecture NN of NET is
 
     signal sum : INPUTMATRIX;        -- Holds the sum outputs for each Layer
     signal acc : INPUTMATRIX;        -- Holds the acc input for each Layer
-    signal output_value : SIGNED(M-1 DOWNTO 0);
+    signal output_value : INTEGER;
 
 begin
     
@@ -55,15 +55,14 @@ begin
                                 y => sum(i));
     end generate;
     
-    output_node_loop : for j in 0 to 0 generate
         output_unit : OUTPUT_NODE port map(
                                 x => sum(L-1),
                                 clk => clk,
                                 rst => rst,
                                 y => output_value);
-    end generate;
     
-    y <= output_value;
+   y <= output_value;
+   acc(0) <= x;
 
     q_loop : for i in 1 to L-1 generate
              acc(i) <= sum(i-1);

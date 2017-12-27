@@ -61,10 +61,10 @@ begin
                                 weightOUT => weightOUT(i),
                                 sum => sum(i));
     end generate;
-        lut_loop : for i in 0 to 1 generate
+
         MU : LUT port map( x => mac_to_lut,
                            y => node_out);
-    end generate;
+
     
     weightIN(0) <= weight;                -- Sets the first MACs weight input to the node's weight input.
     acc(0) <= (others => '0');  -- Sets the first MACs acc input to zeros 
