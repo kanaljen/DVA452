@@ -19,12 +19,12 @@ architecture bench of net_tb is
       PORT (x: IN FIRSTINPUTARRAY;
   clk, rst: IN STD_LOGIC;
   weight: IN WEIGHTINPUTMATRIX;
-  y: OUT INTEGER);
+  y: OUT INPUTARRAY);
   end component;
 
   signal xIn: FIRSTINPUTARRAY;
   signal weightIN: WEIGHTINPUTMATRIX;
-  signal y: INTEGER;
+  signal y: INPUTARRAY;
   
   SIGNAL clk: STD_LOGIC;
   SIGNAL rst: STD_LOGIC;
@@ -44,16 +44,30 @@ begin
     --weightIN(1) <= "0010";
     --weightIN(2) <= "0010";
     --weightIN(3) <= "0010";   
-  weightIN(0)(0) <= "0010";
-  weightIN(0)(1) <= "0001";
- --weightIN(1)(0) <= "0001";
-  --weightIN(1)(1) <= "0010";
-  xIN(0) <= "0010";
-  xIN(1) <= "0001";
-  xIN(2) <= "0010";
-  xIN(3) <= "0001";
+--  weightIN(0)(0) <= "0010";
+--  weightIN(0)(1) <= "0001";
+----  weightIN(0)(2) <= "0001";
+----  weightIN(0)(3) <= "0010";
+--  weightIN(1)(0) <= "0010";
+--  weightIN(1)(1) <= "0001";
+--  xIN(0) <= "0010";
+--  xIN(1) <= "0001";
+--  xIN(2) <= "0010";
+--  xIN(3) <= "0001";
   --xIN(2) <= "0001";
   --xIN(3) <= "0001";
+  weightIN(0)(0) <= "00000001";
+  weightIN(0)(1) <= "00000001";
+  weightIN(1)(0) <= "00000001";
+  weightIN(1)(1) <= "00000001";
+  weightIN(0)(2) <= "00000001";
+  weightIN(0)(3) <= "00000001";
+  weightIN(1)(2) <= "00000001";
+  weightIN(1)(3) <= "00000100";
+  xIN(0) <= "00000001";
+  xIN(1) <= "00000001";
+  xIN(2) <= "00000001";
+  xIN(3) <= "00000001";
 
   wait for 10 ns;
         

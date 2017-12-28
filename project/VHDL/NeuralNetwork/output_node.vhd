@@ -9,7 +9,7 @@ PACKAGE OUTPUT_NODE_PACKAGE IS
 COMPONENT OUTPUT_NODE
       PORT (x: IN INPUTARRAY;
             clk, rst: IN STD_LOGIC;
-            y: OUT INTEGER);
+            y: OUT INPUTARRAY);
 end component;
 
 end package;
@@ -31,27 +31,32 @@ use work.OUTPUT_NODE_PACKAGE.all;
 entity OUTPUT_NODE is
       PORT (x: IN INPUTARRAY;
       clk, rst: IN STD_LOGIC;
-      y: OUT INTEGER);
+      y: OUT INPUTARRAY);
 end OUTPUT_NODE;
 
 architecture NN of OUTPUT_NODE is
 
-SIGNAL output_number : SIGNED(3 DOWNTO 0);
-SIGNAL output_value : INTEGER;
+--SIGNAL output_index : INTEGER;
+SIGNAL sum : INPUTARRAY;
 
 begin
-    
-y <= output_value;
 
-    PROCESS (x,clk)
-    BEGIN
-        output_number <= x(0);
-        for i in 0 to K-1 loop
-            IF(x(i) > output_number) THEN
-                output_number <= x(i);
-                output_value <= i;
-            END IF;
-        end loop;
-    END PROCESS;
+sum <= x;
+y <= sum;
+    
+--y <= output_index;
+
+--    PROCESS (x)
+--    VARIABLE output_value : SIGNED(M-1 DOWNTO 0);
+--    BEGIN
+--        output_value := x(0);
+--        output_index <= 0;
+--        for i in 1 to K-1 loop
+--            IF(x(i) > output_value) THEN
+--                output_value := x(i);
+--                output_index <= i;
+--            END IF;
+--        end loop;
+--    END PROCESS;
 
 end NN;

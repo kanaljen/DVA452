@@ -5,11 +5,11 @@ use ieee.std_logic_signed.all;
 
 package adder_package is
 
-constant c_size : INTEGER := 4;
-CONSTANT N : INTEGER := 2; -- n= # of MAC's (Inputs in each node).,
-CONSTANT M : INTEGER := 4; -- m= # of bits of input and coef.
-CONSTANT K : INTEGER := 2; -- k= # of Nodes / Layer.,
-CONSTANT L : INTEGER := 1; -- l= # of Layers.,
+constant c_size : INTEGER := 8;
+CONSTANT N : INTEGER := 4; -- n= # of MAC's (Inputs in each node).,
+CONSTANT M : INTEGER := 8; -- m= # of bits of input and coef.
+CONSTANT K : INTEGER := 4; -- k= # of Nodes / Layer.,
+CONSTANT L : INTEGER := 2; -- l= # of Layers.,
 CONSTANT p_size : INTEGER := 4; -- # of inputs to first layer.,
 TYPE FIRSTINPUTARRAY IS ARRAY (p_size-1 DOWNTO 0) OF SIGNED(M-1 DOWNTO 0);
 TYPE INPUTARRAY IS ARRAY (N-1 DOWNTO 0) OF SIGNED(M-1 DOWNTO 0);
