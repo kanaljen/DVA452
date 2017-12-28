@@ -32,8 +32,6 @@ Temporary Items
 *.vcd
 *.gtkw
 
-# Python PyCharm files and virtualenv
-project/Train_Mnist/lib/
-project/Train_Mnist/bin/
-project/Train_Mnist/.idea/
-project/Train_Mnist/pyvenv.cfg
+# Python PyCharm files
+project/python/.idea/
+
