@@ -5,7 +5,7 @@ binWeights = []
 outputBits = 16
 
 # Read each line to list and remove |n
-with open('../matLAB/OneLayer/inputsWeights.dat','r') as f:
+with open('../matLAB/OneLayer/layerWeights.dat','r') as f:
     for line in f:
         if '-' in line:
             strWeights.append(line[:9])
@@ -18,6 +18,6 @@ for i in range(0,len(strWeights)):
     binWeights.append(decToBinary(floatWeight,outputBits))
 
 # Write weights to file
-with open('inputWeights.coe','w') as f:
+with open('layerWeights.coe','w') as f:
     for j in range(0,len(binWeights)):
         f.write(binWeights[j] + ',')
