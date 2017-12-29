@@ -34,29 +34,22 @@ end LUT;
 
 architecture NN of LUT is
 
-    signal s_x1: STD_LOGIC_VECTOR(M+M-1 DOWNTO 0);
-    
-    signal s_y1: STD_LOGIC_VECTOR(M+M-1 DOWNTO 0);
-    signal s_y2: STD_LOGIC_VECTOR(M-1 DOWNTO 0);
+    signal s_x: STD_LOGIC_VECTOR(M-1 DOWNTO 0);
+    signal s_y: STD_LOGIC_VECTOR(M-1 DOWNTO 0);
+
 begin
-
-    s_x1 <= std_logic_vector(x);
-
-    s_y1 <= "01000000" when (s_x1 = "00000000") else
-            "01100000" when (s_x1 = "00000001") else
-            "00000010" when (s_x1 = "01100000") else
-           (others => '0');
-
-
-process(s_y1)
-begin
-    s_y2 <= s_y1(M-1 downto 0);
-    
-    for i in M+M-1 downto M loop
-        if(s_y1(i) = '1') then
-            s_y2 <= (others => '1');
-        end if;
-    end loop;
-end process;
-
+   
+   s_x <= STD_LOGIC_VECTOR(x((M+M-2) DOWNTO (M+M-2)-(M-1)));
+   
+   s_y <= s_x;
+   
+--   s_y <= "01111111" when (s_x = "01111111") else
+--          "00000100" when (s_x = "00000010") else
+--          (others => '0');
+   
+   y <= SIGNED(s_y);
+   
+   
+   --y <= x(7 downto 0);
+   
 end NN;
