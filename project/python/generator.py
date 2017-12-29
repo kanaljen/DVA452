@@ -10,8 +10,8 @@ head = 's_x <= '
 F.write(head)
 
 
-inbits = 8
-outbits = 8
+inbits = 16
+outbits = 16
 
 # The negative side
 for i in range(0, int(2**(inbits-1))):
@@ -19,7 +19,7 @@ for i in range(0, int(2**(inbits-1))):
     n = '0'*(inbits-len(n)-1) + n
     n = '1' + n
 
-    x = decToBinary(1/(1 + (exp(-binaryToDecimal(n)))),8)
+    x = decToBinary(1/(1 + (exp(-binaryToDecimal(n)))),outbits)
 
     txt = '"' + str(x) + '"' + " when x = " + '"' + n + '"' + ' else' + '\n'
     F.write(txt)
@@ -29,7 +29,8 @@ for i in range(1, int(2 ** (inbits - 1))):
     n = '0' * (inbits - len(n) - 1) + n
     n = '0' + n
 
-    x = decToBinary(1/(1 + (exp(-binaryToDecimal(n)))),8)
+    x = decToBinary(1/(1 + (exp(-binaryToDecimal(n)))),outbits)
 
     txt = '"' + str(x) + '"' + " when x = " + '"' + n + '"' + ' else' + '\n'
     F.write(txt)
+
