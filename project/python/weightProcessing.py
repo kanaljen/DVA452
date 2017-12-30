@@ -4,20 +4,21 @@ strWeights = []
 binWeights = []
 outputBits = 16
 
-# Read each line to list and remove |n
-with open('../matLAB/OneLayer/layerWeights.dat','r') as f:
-    for line in f:
-        if '-' in line:
-            strWeights.append(line[:9])
-        else:
-            strWeights.append(line[:8])
+for w in ['layer','input']:
+    # Read each line to list and remove |n
+    with open('../matLAB/OneLayer/'+w+'Weights.dat','r') as f:
+        for line in f:
+            if '-' in line:
+                strWeights.append(line[:9])
+            else:
+                strWeights.append(line[:8])
 
-# Convert weights from string to binary
-for i in range(0,len(strWeights)):
-    floatWeight = float(strWeights[i])
-    binWeights.append(decToBinary(floatWeight,outputBits))
+    # Convert weights from string to binary
+    for i in range(0,len(strWeights)):
+        floatWeight = float(strWeights[i])
+        binWeights.append(decToBinary(floatWeight,outputBits))
 
-# Write weights to file
-with open('layerWeights.coe','w') as f:
-    for j in range(0,len(binWeights)):
-        f.write(binWeights[j] + ',')
+    # Write weights to file
+    with open(w+'Weights.coe','w') as f:
+        for j in range(0,len(binWeights)):
+            f.write(binWeights[j] + ',')

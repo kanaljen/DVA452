@@ -2,7 +2,7 @@
 load IW.mat
 rIW = round(W_inputs,5); % Round numbers
 vIW = reshape(rIW,1,[]); % Matrix to vector 
-file = fopen('inputsWeights.dat', 'wt');
+file = fopen('inputWeights.dat', 'wt');
 fprintf(file,'%0.6f\n', vIW);
 fclose(file);
 clear;
