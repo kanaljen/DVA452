@@ -8,7 +8,8 @@ PACKAGE NODE_PACKAGE IS
 
 COMPONENT NODE
       PORT (x: IN INPUTARRAY;
-            weight: IN SIGNED(M-1 DOWNTO 0);
+            weightIn: IN SIGNED(M-1 DOWNTO 0);
+            weightOut: OUT SIGNED(M-1 DOWNTO 0);
             clk, rst: IN STD_LOGIC;
             y: OUT SIGNED(M-1 DOWNTO 0));
 end component;
@@ -31,7 +32,8 @@ use work.LUT_package.all;
 
 entity NODE is
     PORT (x: IN INPUTARRAY;
-          weight: IN SIGNED(M-1 DOWNTO 0);
+          weightIn: IN SIGNED(M-1 DOWNTO 0);
+          weightOut: OUT SIGNED(M-1 DOWNTO 0);
           clk, rst: IN STD_LOGIC;
           y: OUT SIGNED(M-1 DOWNTO 0));
 end NODE;
@@ -39,8 +41,8 @@ end NODE;
 architecture NN of NODE is
 
     type matrixWeight is array (0 to N-1) of SIGNED(M-1 DOWNTO 0); 
-    signal weightIN : matrixWeight;   -- Holds the weight inputs for each MAC
-    signal weightOut : matrixWeight;     -- Holds the weight outputs for each MAC
+    signal weightsIN : matrixWeight;   -- Holds the weight inputs for each MAC
+    signal weightsOut : matrixWeight;     -- Holds the weight outputs for each MAC
     
     type matrix is array (0 to N-1) of SIGNED(M+M-1 DOWNTO 0); 
     signal sum : matrix;        -- Holds the sum outputs for each MAC
@@ -52,28 +54,28 @@ architecture NN of NODE is
 begin
     
     -- Generates each MAC in the Node
-    mac_loop : for i in 0 to N-1 generate
+    mac_loop : for i in 0 to K-1 generate
         MU : MAC_Unit port map( xIn => x(i), 
-                                weightIN => weightIN(i), 
+                                weightIN => weightsIN(i), 
                                 acc => acc(i),
                                 clk => clk, 
                                 rst => rst,
-                                weightOUT => weightOUT(i),
+                                weightOUT => weightsOUT(i),
                                 sum => sum(i));
     end generate;
 
         MU : LUT port map( x => mac_to_lut,
                            y => node_out);
 
-    
-    weightIN(0) <= weight;                -- Sets the first MACs weight input to the node's weight input.
+    weightOut <= weightsOut(N-1);
+    weightsIN(0) <= weightIn;                -- Sets the first MACs weight input to the node's weight input.
     acc(0) <= (others => '0');  -- Sets the first MACs acc input to zeros 
     y <= node_out;
     mac_to_lut <= sum(N-1);
     
     -- Generates all the connections between each MAC
     q_loop : for i in 1 to N-1 generate
-        weightIN(i) <= weightOUT(i-1);
+        weightsIN(i) <= weightsOUT(i-1);
         acc(i) <= sum(i-1);
     end generate;
     

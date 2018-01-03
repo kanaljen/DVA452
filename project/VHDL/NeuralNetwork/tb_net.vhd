@@ -17,29 +17,32 @@ architecture bench of net_tb is
 
   component MLP_NN
       PORT (x: IN FIRSTINPUTARRAY;
-  clk, rst: IN STD_LOGIC;
-  weight: IN WEIGHTINPUTMATRIX;
+  clk, rst, ena_weights: IN STD_LOGIC;
+  weight: IN SIGNED(M-1 DOWNTO 0);
   y: OUT INPUTARRAY);
   end component;
 
   signal xIn: FIRSTINPUTARRAY;
-  signal weightIN: WEIGHTINPUTMATRIX;
+  signal weightsIN: SIGNED(M-1 DOWNTO 0);
   signal y: INPUTARRAY;
   
+  signal ena: STD_LOGIC;
   SIGNAL clk: STD_LOGIC;
   SIGNAL rst: STD_LOGIC;
 
 begin
 
   net_net : MLP_NN port map (x => xIn,
-                         weight => weightIN,
+                         weight => weightsIN,
                          clk => clk,
                          rst => rst,
+                         ena_weights => ena,
                          y => y);
 
   stimulus: process
   begin
   rst <= '0';
+  ena <= '1';
     --weightIN(0) <= "0010";
     --weightIN(1) <= "0010";
     --weightIN(2) <= "0010";
@@ -56,14 +59,15 @@ begin
 --  xIN(3) <= "0001";
   --xIN(2) <= "0001";
   --xIN(3) <= "0001";
-  weightIN(0)(0) <= "00000001";
-  weightIN(0)(1) <= "00000001";
-  weightIN(1)(0) <= "00000001";
-  weightIN(1)(1) <= "00000001";
-  weightIN(0)(2) <= "00000001";
-  weightIN(0)(3) <= "00000001";
-  weightIN(1)(2) <= "00000001";
-  weightIN(1)(3) <= "00000100";
+--  weightIN(0)(0) <= "00000001";
+--  weightIN(0)(1) <= "00000001";
+--  weightIN(1)(0) <= "00000001";
+--  weightIN(1)(1) <= "00000001";
+--  weightIN(0)(2) <= "00000001";
+--  weightIN(0)(3) <= "00000001";
+--  weightIN(1)(2) <= "00000001";
+--  weightIN(1)(3) <= "00000100";
+ -- weightsIn <= "00000010";
   xIN(0) <= "00000001";
   xIN(1) <= "00000001";
   xIN(2) <= "00000001";
@@ -81,9 +85,9 @@ begin
 
   
   wait until (clk'EVENT AND clk='1');
-  
+  --weightsIn <= "00000001";
   wait until (clk'EVENT AND clk='1');
-  
+ -- weightsIn <= "00000001";
   wait until (clk'EVENT AND clk='1');
   -- weightIN(0)(0) <= "0001";
   wait until (clk'EVENT AND clk='1');
@@ -92,6 +96,13 @@ begin
   
   wait until (clk'EVENT AND clk='1');
   
+  wait until (clk'EVENT AND clk='1');
+  wait until (clk'EVENT AND clk='1');
+  wait until (clk'EVENT AND clk='1');
+  wait until (clk'EVENT AND clk='1');
+  wait until (clk'EVENT AND clk='1');
+  wait until (clk'EVENT AND clk='1');
+  wait until (clk'EVENT AND clk='1');
   wait until (clk'EVENT AND clk='1');
 
   stop_the_clock <= true;
