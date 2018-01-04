@@ -11,7 +11,7 @@ F.write(head)
 
 
 inbits = 16
-outbits = 8
+outbits = 16
 
 # The negative side
 for i in range(0, int(2**(inbits-1))):
