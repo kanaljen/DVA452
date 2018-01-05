@@ -1,8 +1,9 @@
 
-def binaryToDecimal(binary):
+def binaryToDecimal(binary,intbit):
     """"Function converts binary fraction to decimal fraction"""
 
     dec = 0
+
 
     # Only sign bit
     if len(binary) < 1:
@@ -12,18 +13,19 @@ def binaryToDecimal(binary):
     if(binary[0] == '0'):
         for i in range(1,len(binary)):
             if(binary[i] == '1'):
-                dec += (1/(2**i))
+                dec += 1/(2**(i-(intbit)))
+
         return dec
 
     # For negative numbers
     elif(binary[0] == '1'):
         for i in range(1,len(binary)):
             if(binary[i] == '0'):
-                dec += (1/(2**i))
+                dec += (1/(2**(i-(intbit))))
         return dec*-1
 
 
-def decToBinary(dec,bits):
+def decToBinary(dec,bits,intbit):
     """"Function converts decimal fractions to binary fractions of bits lenth"""
 
     # For negative numbers
@@ -33,8 +35,8 @@ def decToBinary(dec,bits):
         dec = dec*-1
 
         for i in range(1, bits):
-            if (dec - (1 / (2 ** i)) >= 0):
-                dec = dec - 1 / (2 ** i)
+            if (dec - (1 / (2 ** (i-intbit))) >= 0):
+                dec = dec - 1 / (2 ** (i-intbit))
                 binary += '0'
 
             else:
@@ -45,8 +47,8 @@ def decToBinary(dec,bits):
         binary = '0'
 
         for i in range(1, bits):
-            if (dec - (1 / (2 ** i)) >= 0):
-                dec = dec - 1 / (2 ** i)
+            if (dec - (1 / (2 ** (i-intbit))) >= 0):
+                dec = dec - 1 / (2 ** (i-intbit))
                 binary += '1'
 
             else:
@@ -57,4 +59,3 @@ def decToBinary(dec,bits):
         return '0'*bits
 
     return binary
-
