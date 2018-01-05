@@ -5,7 +5,7 @@ use ieee.std_logic_signed.all;
 
 package adder_package is
 
-constant c_size : INTEGER := 16;
+constant c_size : INTEGER := 16; -- m= # of bits of input in the MAC
 CONSTANT N : INTEGER := 2; -- n= # of MAC's (Inputs in each node).,
 CONSTANT M : INTEGER := 16; -- m= # of bits of input and coef.
 CONSTANT K : INTEGER := 2; -- k= # of Nodes / Layer.,

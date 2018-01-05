@@ -29,8 +29,8 @@ architecture NN of MLP_NN is
     SIGNAL addra_weights : STD_LOGIC_VECTOR(3 DOWNTO 0) := (others => '0');
     SIGNAL douta_weights : STD_LOGIC_VECTOR(M-1 DOWNTO 0);
     SIGNAL douta_sgn : SIGNED(M-1 DOWNTO 0);
-    SIGNAL addra_sgn : SIGNED(3 DOWNTO 0);
-    SIGNAL addra_max : SIGNED(3 DOWNTO 0) := (others => '1');
+    --SIGNAL addra_sgn : SIGNED(3 DOWNTO 0);                    -- KAN TAS BORT
+    --SIGNAL addra_max : SIGNED(3 DOWNTO 0) := (others => '1'); -- KAN TAS BORT
     
     SIGNAL addra_inputs : STD_LOGIC_VECTOR(2 DOWNTO 0) := (others => '0');
     SIGNAL douta_inputs : STD_LOGIC_VECTOR(M-1 DOWNTO 0);
@@ -39,26 +39,23 @@ architecture NN of MLP_NN is
     SIGNAL ena_inputs : STD_LOGIC := '1';
     SIGNAL input_counter : INTEGER RANGE 0 TO 128;
     
-COMPONENT blk_mem_gen_1
-      PORT (
-        clka : IN STD_LOGIC;
-        ena : IN STD_LOGIC;
-        addra : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-        douta : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
-      );
+    COMPONENT blk_mem_gen_0
+        PORT (
+            clka : IN STD_LOGIC;
+            ena : IN STD_LOGIC;
+            addra : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+            douta : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+        );
     END COMPONENT;
     
-    COMPONENT blk_mem_gen_2
-      PORT (
-        clka : IN STD_LOGIC;
-        ena : IN STD_LOGIC;
-        addra : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-        douta : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+    COMPONENT blk_mem_gen_1
+        PORT (
+            clka : IN STD_LOGIC;
+            ena : IN STD_LOGIC;
+            addra : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+            douta : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
       );
     END COMPONENT;
-
-
-
 
 begin
 
@@ -80,40 +77,36 @@ begin
                                 y => sum(i));
     end generate;
     
-        output_unit : OUTPUT_NODE port map(
+    output_unit : OUTPUT_NODE port map(
                                 x => sum(L-1),
                                 clk => clk,
                                 rst => rst,
                                 y => output_value);
                                 
-     weight_memory : blk_mem_gen_1
-                                  PORT MAP (
-                                    clka => clk,
-                                    ena => ena_weights,
-                                    addra => addra_weights,
-                                    douta => douta_weights
-                                  );
+    weight_memory : blk_mem_gen_0 PORT MAP (
+                                clka => clk,
+                                ena => ena_weights,
+                                addra => addra_weights,
+                                douta => douta_weights
+                                );
                                   
-     input_memory : blk_mem_gen_2
-                                    PORT MAP (
-                                      clka => clk,
-                                      ena => ena_inputs,
-                                      addra => addra_inputs,
-                                      douta => douta_inputs
-                                    );
+    input_memory : blk_mem_gen_1 PORT MAP (
+                                clka => clk,
+                                ena => ena_inputs,
+                                addra => addra_inputs,
+                                douta => douta_inputs
+                                );
 
-   addra_sgn <= signed(addra_weights);
-   douta_sgn <= signed(douta_weights);
-   addra_inputs_sgn <= signed(addra_inputs);
-   douta_inputs_sgn <= signed(douta_inputs);
-   weightsIn(0) <= douta_sgn;
-   y <= output_value;
-   --pixel_inputs <= x;
-   
+    --addra_sgn <= signed(addra_weights);        -- KAN TAS BORT
+    douta_sgn <= signed(douta_weights);
+    --addra_inputs_sgn <= signed(addra_inputs);  -- KAN TAS BORT
+    douta_inputs_sgn <= signed(douta_inputs);
+    weightsIn(0) <= douta_sgn;
+    y <= output_value;
 
     q_loop : for i in 1 to L-1 generate
-             acc(i) <= sum(i-1);
-             weightsIN(i) <= weightsOUT(i-1);
+        acc(i) <= sum(i-1);
+        weightsIN(i) <= weightsOUT(i-1);
     end generate;
     
     PROCESS(input_counter)
