@@ -66,8 +66,9 @@ begin
     -- When s_x is the most negative assigns zero to s_y
     -- Then increase s_y as s_x goes to zero and further from zero to the largest positive
     --------------------------------------------------
-    s_y <=  "0000000000000010" when s_x = "0001001100000000" else
-            "0000000000000011" when s_x = "0001001000000000" else
+    s_y <=  "0000001000000000" when s_x = "0001001100000000" else
+            "0000001100000000" when s_x = "0001001000000000" else
+            "0000000000000101" when s_x = "0000010100000000" else
             "0000001000000000" when s_x = "0000001100000000" else
             "0000001000000000" when s_x = "0000010000000000" else
             "0000001000000000" when s_x = "0000010100000000" else

@@ -26,24 +26,24 @@ architecture NN of MLP_NN is
     signal weightsIn : WEIGHTINPUTMATRIX;
     signal weightsOut : WEIGHTINPUTMATRIX;
     
-    SIGNAL addra_weights : STD_LOGIC_VECTOR(3 DOWNTO 0) := (others => '0');
+    SIGNAL addra_weights : STD_LOGIC_VECTOR(12 DOWNTO 0) := (others => '0');
     SIGNAL douta_weights : STD_LOGIC_VECTOR(M-1 DOWNTO 0);
     SIGNAL douta_sgn : SIGNED(M-1 DOWNTO 0);
     --SIGNAL addra_sgn : SIGNED(3 DOWNTO 0);                    -- KAN TAS BORT
     --SIGNAL addra_max : SIGNED(3 DOWNTO 0) := (others => '1'); -- KAN TAS BORT
     
-    SIGNAL addra_inputs : STD_LOGIC_VECTOR(2 DOWNTO 0) := (others => '0');
+    SIGNAL addra_inputs : STD_LOGIC_VECTOR(8 DOWNTO 0) := (others => '0');
     SIGNAL douta_inputs : STD_LOGIC_VECTOR(M-1 DOWNTO 0);
     SIGNAL douta_inputs_sgn : SIGNED(M-1 DOWNTO 0);
-    SIGNAL addra_inputs_sgn : SIGNED(2 DOWNTO 0) := (others => '0');
+    SIGNAL addra_inputs_sgn : SIGNED(8 DOWNTO 0) := (others => '0');
     SIGNAL ena_inputs : STD_LOGIC := '1';
-    SIGNAL input_counter : INTEGER RANGE 0 TO 128;
+    SIGNAL input_counter : INTEGER;
     
     COMPONENT blk_mem_gen_0
         PORT (
             clka : IN STD_LOGIC;
             ena : IN STD_LOGIC;
-            addra : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+            addra : IN STD_LOGIC_VECTOR(12 DOWNTO 0);
             douta : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
         );
     END COMPONENT;
@@ -52,7 +52,7 @@ architecture NN of MLP_NN is
         PORT (
             clka : IN STD_LOGIC;
             ena : IN STD_LOGIC;
-            addra : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+            addra : IN STD_LOGIC_VECTOR(8 DOWNTO 0);
             douta : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
       );
     END COMPONENT;

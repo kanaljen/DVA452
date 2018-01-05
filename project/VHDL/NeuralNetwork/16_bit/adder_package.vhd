@@ -6,11 +6,11 @@ use ieee.std_logic_signed.all;
 package adder_package is
 
 constant c_size : INTEGER := 16; -- m= # of bits of input in the MAC
-CONSTANT N : INTEGER := 2; -- n= # of MAC's (Inputs in each node).,
+CONSTANT N : INTEGER := 10; -- n= # of MAC's (Inputs in each node).,
 CONSTANT M : INTEGER := 16; -- m= # of bits of input and coef.
-CONSTANT K : INTEGER := 2; -- k= # of Nodes / Layer.,
-CONSTANT L : INTEGER := 1; -- l= # of Layers.,
-CONSTANT p_size : INTEGER := 5; -- # of inputs to first layer.,
+CONSTANT K : INTEGER := 10; -- k= # of Nodes / Layer.,
+CONSTANT L : INTEGER := 2; -- l= # of Layers.,
+CONSTANT p_size : INTEGER := 400; -- # of inputs to first layer.,
 TYPE FIRSTINPUTARRAY IS ARRAY (p_size-1 DOWNTO 0) OF SIGNED(M-1 DOWNTO 0);
 TYPE INPUTARRAY IS ARRAY (K-1 DOWNTO 0) OF SIGNED(M-1 DOWNTO 0);
 TYPE INPUTMATRIX IS ARRAY (L-1 DOWNTO 0) OF INPUTARRAY;
